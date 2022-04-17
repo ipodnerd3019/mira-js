@@ -1,0 +1,15 @@
+{
+  "name": "mira-js",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-hid": "2.1.1"
+  }
+}
