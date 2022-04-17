@@ -1,22 +1,18 @@
+#!/usr/bin/env node
+
 import HID from 'node-hid';
+import  * as commands from './commands.js'
 
 const VID = 0x0416;
 const PID = 0x5020;
 
-const COMMAND = {
-  REFRESH: 0x01,
-};
-
 let device = new HID.HID(VID, PID);
 
 if (!device) {
-  console.error('No Mira device found.');
+  console.error('No Mira device found');
   process.exit(1);
 }
+console.log('Mira device found');
 
-console.error('Mira device found.');
-let command_buf = Buffer.alloc(1);
-command_buf.writeUInt8(COMMAND.REFRESH);
-device.write(command_buf);
-
-process.exit(0);
+console.log('Sending Refresh command');
+device.write(commands.buildRefreshCommand());

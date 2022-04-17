@@ -5,11 +5,11 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-hid": "2.1.1"
+    "node-hid": "1bb251cc64ff4df43b05877feed54db94baa44b4"
   }
 }
