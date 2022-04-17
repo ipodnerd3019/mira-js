@@ -8,7 +8,7 @@
     "start": "node src/index.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "dependencies": {
     "node-hid": "1bb251cc64ff4df43b05877feed54db94baa44b4"
   }
