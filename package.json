@@ -9,5 +9,13 @@
   },
   "bin": {
     "mira": "./bin/cli.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint '**/*.js'"
   }
 }

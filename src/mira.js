@@ -4,17 +4,15 @@ const VID = 0x0416;
 const PID = 0x5020;
 
 const OP_CODE = {
-  REFRESH: 0x01,
+  refresh: 0x01,
 };
 
 export default class Mira {
-  #device;
-
   constructor(device) {
     if (!device) {
-      throw new Error("Mira constructed with an invalid device");
+      throw new Error('Mira constructed with an invalid device');
     }
-    this.#device = device;
+    this.device = device;
   }
 
   static create() {
@@ -26,6 +24,6 @@ export default class Mira {
   }
 
   refresh() {
-    this.#device.write([OP_CODE.REFRESH]);
+    this.device.write([OP_CODE.refresh]);
   }
-};
+}

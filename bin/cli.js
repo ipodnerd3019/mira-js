@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import Mira from "../src/mira.js";
+import Mira from '../src/mira';
 
 const mira = Mira.create();
 if (!mira) {
