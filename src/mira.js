@@ -10,6 +10,7 @@ const PID = 0x5020;
 
 const OP_CODE = {
   refresh: 0x01,
+  speed: 0x04,
 };
 
 export default class Mira {
@@ -30,5 +31,17 @@ export default class Mira {
 
   refresh() {
     this.device.write([OP_CODE.refresh]);
+  }
+
+  setSpeed(speed) {
+    let adjustedSpeed = speed;
+    if (adjustedSpeed < 1) {
+      adjustedSpeed = 1;
+    }
+    if (adjustedSpeed > 7) {
+      adjustedSpeed = 7;
+    }
+    adjustedSpeed = 11 - adjustedSpeed;
+    this.device.write([OP_CODE.speed, adjustedSpeed]);
   }
 }

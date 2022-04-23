@@ -14,5 +14,15 @@ yargs(hideBin(process.argv))
   .command('refresh', 'refresh the screen', () => { }, () => {
     mira.refresh();
   })
+  .command('settings', 'apply settings', (args) => {
+    args.option('speed', {
+      type: 'number',
+      description: 'The refresh speed (1-7)',
+    })
+  }, (argv) => {
+    if (argv.speed) {
+      mira.setSpeed(argv.speed);
+    }
+  })
   .demandCommand(1, 1)
   .parse();

@@ -9,7 +9,7 @@
     "yargs": "^17.4.1"
   },
   "bin": {
-    "mira": "./bin/cli.js"
+    "mira": "bin/cli.js"
   },
   "devDependencies": {
     "eslint": "^8.14.0",
