@@ -5,7 +5,8 @@
   "description": "A library for interacting with the Boox Mira",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "node-hid": "1bb251cc64ff4df43b05877feed54db94baa44b4"
+    "node-hid": "1bb251cc64ff4df43b05877feed54db94baa44b4",
+    "yargs": "^17.4.1"
   },
   "bin": {
     "mira": "./bin/cli.js"
