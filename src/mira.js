@@ -1,5 +1,10 @@
 import HID from 'node-hid';
 
+if (process.platform === 'linux') {
+  // libusb seems to be more reliable on Linux
+  HID.setDriverType('libusb');
+}
+
 const VID = 0x0416;
 const PID = 0x5020;
 
