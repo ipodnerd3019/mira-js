@@ -18,7 +18,7 @@ yargs(hideBin(process.argv))
     args.option('speed', {
       type: 'number',
       description: 'The refresh speed (1-7)',
-    })
+    });
   }, (argv) => {
     if (argv.speed) {
       mira.setSpeed(argv.speed);
