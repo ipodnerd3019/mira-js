@@ -1,6 +1,18 @@
 # Mira-js
 Mira-js is a library and CLI for interacting with the Boox Mira and Boox Mira Pro e-ink monitors.
 
+# Usage
+Install the CLI globally:
+```
+npm install -g
+```
+
+Run the CLI:
+```
+npx mira refresh
+npx mira settings --speed 3 --contrast 11
+```
+
 # Linux notes
 ## udev device permissions
 1. Create `/etc/udev/rules.d/58-hid.rules` file
