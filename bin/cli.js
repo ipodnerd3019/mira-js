@@ -18,10 +18,16 @@ yargs(hideBin(process.argv))
     args.option('speed', {
       type: 'number',
       description: 'The refresh speed (1-7)',
+    }).option('contrast', {
+      type: 'number',
+      description: 'The contrast (0-15)',
     });
   }, (argv) => {
     if (argv.speed) {
       mira.setSpeed(argv.speed);
+    }
+    if (argv.contrast) {
+      mira.setContrast(argv.contrast);
     }
   })
   .demandCommand(1, 1)

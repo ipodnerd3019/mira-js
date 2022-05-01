@@ -11,7 +11,12 @@ const PID = 0x5020;
 const OP_CODE = {
   refresh: 0x01,
   speed: 0x04,
+  contrast: 0x05,
 };
+
+function clamp(number, min, max) {
+  return Math.max(min, Math.min(number, max));
+}
 
 export default class Mira {
   constructor(device) {
@@ -34,14 +39,13 @@ export default class Mira {
   }
 
   setSpeed(speed) {
-    let adjustedSpeed = speed;
-    if (adjustedSpeed < 1) {
-      adjustedSpeed = 1;
-    }
-    if (adjustedSpeed > 7) {
-      adjustedSpeed = 7;
-    }
+    let adjustedSpeed = clamp(speed, 1, 7);
     adjustedSpeed = 11 - adjustedSpeed;
     this.device.write([OP_CODE.speed, adjustedSpeed]);
+  }
+
+  setContrast(contrast) {
+    const adjustedContrast = clamp(contrast, 0, 15);
+    this.device.write([OP_CODE.contrast, adjustedContrast]);
   }
 }
