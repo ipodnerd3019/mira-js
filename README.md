@@ -4,7 +4,7 @@ Mira-js is a library and CLI for interacting with the Boox Mira and Boox Mira Pr
 # Usage
 Install the CLI globally:
 ```
-npm install -g
+npm install -g boox-mira
 ```
 
 Run the CLI:
