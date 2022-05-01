@@ -1,5 +1,5 @@
 {
-  "name": "mira-js",
+  "name": "boox-mira",
   "version": "0.0.0",
   "type": "module",
   "description": "A library for interacting with the Boox Mira",
