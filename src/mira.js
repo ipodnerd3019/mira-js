@@ -10,8 +10,15 @@ const PID = 0x5020;
 
 const OP_CODE = {
   refresh: 0x01,
+  refresh_mode: 0x02,
   speed: 0x04,
   contrast: 0x05,
+};
+
+export const REFRESH_MODE = {
+  direct_update: 0x01, // black/white, fast
+  gray_update: 0x02, // gray scale, slow
+  a2: 0x03, // fast
 };
 
 function clamp(number, min, max) {
@@ -47,5 +54,14 @@ export default class Mira {
   setContrast(contrast) {
     const adjustedContrast = clamp(contrast, 0, 15);
     this.device.write([OP_CODE.contrast, adjustedContrast]);
+  }
+
+  setRefreshMode(mode) {
+    if (mode !== REFRESH_MODE.direct_update
+      && mode !== REFRESH_MODE.gray_update
+      && mode !== REFRESH_MODE.a2) {
+      throw new Error('Invalid refresh mode');
+    }
+    this.device.write([OP_CODE.refresh_mode, mode]);
   }
 }

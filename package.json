@@ -1,6 +1,6 @@
 {
   "name": "boox-mira",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "type": "module",
   "description": "A library for interacting with the Boox Mira",
   "license": "GPL-3.0-or-later",
