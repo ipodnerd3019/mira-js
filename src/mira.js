@@ -42,6 +42,10 @@ export default class Mira {
     return new Mira(device);
   }
 
+  close() {
+    this.device.close();
+  }
+
   refresh() {
     this.device.write([OP_CODE.refresh]);
   }
