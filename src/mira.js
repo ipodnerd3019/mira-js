@@ -1,4 +1,5 @@
 import HID from 'node-hid';
+import { promisify } from 'util';
 
 if (process.platform === 'linux') {
   // libusb seems to be more reliable on Linux
@@ -26,6 +27,10 @@ function clamp(number, min, max) {
   return Math.max(min, Math.min(number, max));
 }
 
+const sleep = promisify(setTimeout);
+
+const SLEEP_AFTER_WRITE_MS = 500;
+
 export default class Mira {
   constructor(device) {
     if (!device) {
@@ -46,30 +51,35 @@ export default class Mira {
     this.device.close();
   }
 
-  refresh() {
-    this.device.write([OP_CODE.refresh]);
+  async write(buffer) {
+    this.device.write(buffer);
+    await sleep(SLEEP_AFTER_WRITE_MS);
   }
 
-  setSpeed(speed) {
+  async refresh() {
+    await this.write([OP_CODE.refresh]);
+  }
+
+  async setSpeed(speed) {
     let adjustedSpeed = clamp(speed, 1, 7);
     adjustedSpeed = 11 - adjustedSpeed;
-    this.device.write([OP_CODE.speed, adjustedSpeed]);
+    await this.write([OP_CODE.speed, adjustedSpeed]);
   }
 
-  setContrast(contrast) {
+  async setContrast(contrast) {
     const adjustedContrast = clamp(contrast, 0, 15);
-    this.device.write([OP_CODE.contrast, adjustedContrast]);
+    await this.write([OP_CODE.contrast, adjustedContrast]);
   }
 
-  setRefreshMode(mode) {
+  async setRefreshMode(mode) {
     if (!Object.values(REFRESH_MODE).includes(mode)) {
       throw new Error('Invalid refresh mode');
     }
-    this.device.write([OP_CODE.refresh_mode, mode]);
+    await this.write([OP_CODE.refresh_mode, mode]);
   }
 
-  setDitherMode(mode) {
+  async setDitherMode(mode) {
     const adjustedMode = clamp(mode, 0, 3);
-    this.device.write([OP_CODE.dither_mode, adjustedMode]);
+    await this.write([OP_CODE.dither_mode, adjustedMode]);
   }
 }
