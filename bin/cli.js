@@ -14,18 +14,24 @@ yargs(hideBin(process.argv))
   .command('refresh', 'refresh the screen', () => { }, () => {
     mira.refresh();
   })
-  .command('settings', 'apply settings', (args) => {
-    args.option('speed', {
+  .command('settings', 'apply settings', {
+    speed: {
       type: 'number',
       description: 'The refresh speed (1-7)',
-    }).option('contrast', {
+    },
+    contrast: {
       type: 'number',
       description: 'The contrast (0-15)',
-    }).option('refresh-mode', {
+    },
+    'refresh-mode': {
       type: 'string',
       description: 'The refresh mode',
       choices: ['a2', 'direct', 'gray'],
-    });
+    },
+    'dither-mode': {
+      type: 'number',
+      description: 'The dither mode (0-3)',
+    },
   }, (argv) => {
     if (argv.speed) {
       mira.setSpeed(argv.speed);
@@ -49,6 +55,10 @@ yargs(hideBin(process.argv))
         default:
           throw new Error('Invalid refresh mode');
       }
+    }
+
+    if (argv.ditherMode) {
+      mira.setDitherMode(argv.ditherMode);
     }
   })
   .demandCommand(1, 1)

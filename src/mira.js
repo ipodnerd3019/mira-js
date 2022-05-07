@@ -13,6 +13,7 @@ const OP_CODE = {
   refresh_mode: 0x02,
   speed: 0x04,
   contrast: 0x05,
+  dither_mode: 0x09,
 };
 
 export const REFRESH_MODE = {
@@ -57,11 +58,14 @@ export default class Mira {
   }
 
   setRefreshMode(mode) {
-    if (mode !== REFRESH_MODE.direct_update
-      && mode !== REFRESH_MODE.gray_update
-      && mode !== REFRESH_MODE.a2) {
+    if (!Object.values(REFRESH_MODE).includes(mode)) {
       throw new Error('Invalid refresh mode');
     }
     this.device.write([OP_CODE.refresh_mode, mode]);
+  }
+
+  setDitherMode(mode) {
+    const adjustedMode = clamp(mode, 0, 3);
+    this.device.write([OP_CODE.dither_mode, adjustedMode]);
   }
 }
