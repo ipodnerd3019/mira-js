@@ -41,14 +41,7 @@ await yargs(hideBin(process.argv))
       description: 'The white filter level (0-254). Black and white filters must be set together.',
     },
   }, async (argv) => {
-    if ('speed' in argv) {
-      await mira.setSpeed(argv.speed);
-    }
-
-    if ('contrast' in argv) {
-      await mira.setContrast(argv.contrast);
-    }
-
+    console.log(argv);
     if ('refreshMode' in argv) {
       switch (argv.refreshMode) {
         case 'a2':
@@ -63,6 +56,14 @@ await yargs(hideBin(process.argv))
         default:
           throw new Error('Invalid refresh mode');
       }
+    }
+
+    if ('speed' in argv) {
+      await mira.setSpeed(argv.speed);
+    }
+
+    if ('contrast' in argv) {
+      await mira.setContrast(argv.contrast);
     }
 
     if ('ditherMode' in argv) {
