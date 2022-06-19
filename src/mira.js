@@ -11,10 +11,11 @@ const PID = 0x5020;
 
 const OP_CODE = {
   refresh: 0x01,
-  refresh_mode: 0x02,
-  speed: 0x04,
-  contrast: 0x05,
-  dither_mode: 0x09,
+  set_refresh_mode: 0x02,
+  set_speed: 0x04,
+  set_contrast: 0x05,
+  set_dither_mode: 0x09,
+  set_color_filter: 0x11,
 };
 
 export const REFRESH_MODE = {
@@ -22,6 +23,8 @@ export const REFRESH_MODE = {
   gray_update: 0x02, // gray scale, slow
   a2: 0x03, // fast
 };
+
+const USB_REPORT_ID = 0x00;
 
 function clamp(number, min, max) {
   return Math.max(min, Math.min(number, max));
@@ -57,29 +60,35 @@ export default class Mira {
   }
 
   async refresh() {
-    await this.write([OP_CODE.refresh]);
+    await this.write([USB_REPORT_ID, OP_CODE.refresh]);
   }
 
   async setSpeed(speed) {
     let adjustedSpeed = clamp(speed, 1, 7);
     adjustedSpeed = 11 - adjustedSpeed;
-    await this.write([OP_CODE.speed, adjustedSpeed]);
+    await this.write([USB_REPORT_ID, OP_CODE.set_speed, adjustedSpeed]);
   }
 
   async setContrast(contrast) {
     const adjustedContrast = clamp(contrast, 0, 15);
-    await this.write([OP_CODE.contrast, adjustedContrast]);
+    await this.write([USB_REPORT_ID, OP_CODE.set_contrast, adjustedContrast]);
   }
 
   async setRefreshMode(mode) {
     if (!Object.values(REFRESH_MODE).includes(mode)) {
       throw new Error('Invalid refresh mode');
     }
-    await this.write([OP_CODE.refresh_mode, mode]);
+    await this.write([USB_REPORT_ID, OP_CODE.set_refresh_mode, mode]);
   }
 
   async setDitherMode(mode) {
     const adjustedMode = clamp(mode, 0, 3);
-    await this.write([OP_CODE.dither_mode, adjustedMode]);
+    await this.write([USB_REPORT_ID, OP_CODE.set_dither_mode, adjustedMode]);
+  }
+
+  async setColorFilter(whiteFilter, blackFilter) {
+    const adjustedWhite = 255 - clamp(whiteFilter, 0, 254);
+    const adjustedBlack = clamp(blackFilter, 0, 254);
+    await this.write([USB_REPORT_ID, OP_CODE.set_color_filter, adjustedWhite, adjustedBlack]);
   }
 }

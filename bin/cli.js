@@ -32,16 +32,24 @@ await yargs(hideBin(process.argv))
       type: 'number',
       description: 'The dither mode (0-3)',
     },
+    'black-filter': {
+      type: 'number',
+      description: 'The black filter level (0-254). Black and white filters must be set together.',
+    },
+    'white-filter': {
+      type: 'number',
+      description: 'The white filter level (0-254). Black and white filters must be set together.',
+    },
   }, async (argv) => {
-    if (argv.speed) {
+    if ('speed' in argv) {
       await mira.setSpeed(argv.speed);
     }
 
-    if (argv.contrast) {
+    if ('contrast' in argv) {
       await mira.setContrast(argv.contrast);
     }
 
-    if (argv.refreshMode) {
+    if ('refreshMode' in argv) {
       switch (argv.refreshMode) {
         case 'a2':
           await mira.setRefreshMode(REFRESH_MODE.a2);
@@ -57,8 +65,12 @@ await yargs(hideBin(process.argv))
       }
     }
 
-    if (argv.ditherMode) {
+    if ('ditherMode' in argv) {
       await mira.setDitherMode(argv.ditherMode);
+    }
+
+    if ('blackFilter' in argv || 'whiteFilter' in argv) {
+      await mira.setColorFilter(argv.whiteFilter || 0, argv.blackFilter || 0);
     }
   })
   .demandCommand(1, 1)
