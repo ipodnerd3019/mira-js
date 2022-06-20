@@ -1,5 +1,10 @@
 # Mira-js
-Mira-js is a library and CLI for interacting with the Boox Mira and Boox Mira Pro e-ink monitors.
+[![npm version](https://img.shields.io/npm/v/boox-mira)](https://www.npmjs.com/package/boox-mira)
+
+Mira-js is a library and CLI for interacting with the Boox Mira and Boox Mira Pro e-ink monitors. It is compatible with Linux, macOS, and Windows.
+
+# Requirements
+- Node >= 16.0.0
 
 # Usage
 Install the CLI globally:
@@ -7,10 +12,20 @@ Install the CLI globally:
 npm install -g boox-mira
 ```
 
+Upgrade the CLI:
+```bash
+npm upgrade -g boox-mira
+```
+
 Run the CLI:
 ```bash
 npx mira refresh
 npx mira settings --speed 3 --contrast 11
+```
+
+Get usage help:
+```bash
+npx mira --help
 ```
 
 ## Modes
