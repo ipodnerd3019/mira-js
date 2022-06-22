@@ -41,7 +41,6 @@ await yargs(hideBin(process.argv))
       description: 'The white filter level (0-254). Black and white filters must be set together.',
     },
   }, async (argv) => {
-    console.log(argv);
     if ('refreshMode' in argv) {
       switch (argv.refreshMode) {
         case 'a2':
