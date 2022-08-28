@@ -14,6 +14,8 @@ const OP_CODE = {
   set_refresh_mode: 0x02,
   set_speed: 0x04,
   set_contrast: 0x05,
+  set_cold_light: 0x06,
+  set_warm_light: 0x07,
   set_dither_mode: 0x09,
   set_color_filter: 0x11,
 };
@@ -90,5 +92,15 @@ export default class Mira {
     const adjustedWhite = 255 - clamp(whiteFilter, 0, 254);
     const adjustedBlack = clamp(blackFilter, 0, 254);
     await this.write([USB_REPORT_ID, OP_CODE.set_color_filter, adjustedWhite, adjustedBlack]);
+  }
+  
+  async setColdLight(brightness) {
+    const adjustedBrightness = clamp(brightness, 0, 254);
+    await this.write([USB_REPORT_ID, OP_CODE.set_cold_light, adjustedBrightness]);
+  }
+  
+  async setWarmLight(brightness) {
+    const adjustedBrightness = clamp(brightness, 0, 254);
+    await this.write([USB_REPORT_ID, OP_CODE.set_warm_light, adjustedBrightness]);
   }
 }

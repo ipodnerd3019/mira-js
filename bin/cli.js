@@ -40,6 +40,14 @@ await yargs(hideBin(process.argv))
       type: 'number',
       description: 'The white filter level (0-254). Black and white filters must be set together.',
     },
+    'cold-light': {
+      type: 'number',
+      description: 'The cold backlight level (0-254).',
+    },
+    'warm-light': {
+      type: 'number',
+      description: 'The warm backlight level (0-254).',
+    },  
   }, async (argv) => {
     if ('refreshMode' in argv) {
       switch (argv.refreshMode) {
@@ -71,6 +79,14 @@ await yargs(hideBin(process.argv))
 
     if ('blackFilter' in argv || 'whiteFilter' in argv) {
       await mira.setColorFilter(argv.whiteFilter || 0, argv.blackFilter || 0);
+    }
+  
+    if ('coldLight' in argv) {
+      await mira.setColdLight(argv.coldLight);
+    }
+    
+    if ('warmLight' in argv) {
+      await mira.setWarmLight(argv.warmLight);
     }
   })
   .demandCommand(1, 1)
