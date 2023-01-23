@@ -18,12 +18,20 @@ const OP_CODE = {
   set_warm_light: 0x07,
   set_dither_mode: 0x09,
   set_color_filter: 0x11,
+  set_auto_dither_mode: 0x12,
 };
 
 export const REFRESH_MODE = {
   direct_update: 0x01, // black/white, fast
   gray_update: 0x02, // gray scale, slow
   a2: 0x03, // fast
+};
+
+export const AUTO_DITHER_MODE = {
+  disable: [0, 0, 0, 0],
+  low: [1, 0, 30, 10],
+  middle: [1, 0, 40, 10],
+  high: [1, 0, 50, 30],
 };
 
 const USB_REPORT_ID = 0x00;
@@ -63,6 +71,17 @@ export default class Mira {
 
   async refresh() {
     await this.write([USB_REPORT_ID, OP_CODE.refresh]);
+  }
+
+  async setAutoDitherMode(autoDitherMode) {
+    await this.write([
+      USB_REPORT_ID,
+      OP_CODE.set_auto_dither_mode,
+      autoDitherMode[0],
+      autoDitherMode[1],
+      autoDitherMode[2],
+      autoDitherMode[3],
+    ]);
   }
 
   async setSpeed(speed) {
