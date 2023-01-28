@@ -2,7 +2,7 @@
 
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import Mira, { REFRESH_MODE } from '../src/mira.js';
+import Mira, { AUTO_DITHER_MODE, REFRESH_MODE } from '../src/mira.js';
 
 const mira = Mira.create();
 if (!mira) {
@@ -13,6 +13,9 @@ if (!mira) {
 await yargs(hideBin(process.argv))
   .command('refresh', 'refresh the screen', () => { }, async () => {
     await mira.refresh();
+  })
+  .command('antishake', 'anti-shake automatically', () => { }, async () => {
+    await mira.setAutoDitherMode(AUTO_DITHER_MODE.high);
   })
   .command('settings', 'apply settings', {
     speed: {
